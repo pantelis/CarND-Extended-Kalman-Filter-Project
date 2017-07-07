@@ -62,9 +62,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
         //state covariance matrix P
         ekf_.P_ = MatrixXd(4, 4);
+
         ekf_.P_ << 1., 0., 0., 0.,
                 0., 1., 0., 0.,
-                0., 0., 1000., 0.,
+                0., 0., 100., 0.,
                 0., 0., 0., 1000.;
 
         //the initial transition matrix F_
@@ -80,7 +81,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
                 0, 1, 0, 1,
                 1, 0, 1, 0,
                 0, 1, 0, 1;
-
 
         //#R(for radar) meas_rho meas_phi meas_rho_dot timestamp gt_px gt_py gt_vx gt_vy
         if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
@@ -168,6 +168,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
 
     // print the output
-    //cout << "x_ = " << ekf_.x_ << endl;
-    //cout << "P_ = " << ekf_.P_ << endl;
+    cout << "x_ = " << ekf_.x_ << endl;
+    cout << "P_ = " << ekf_.P_ << endl;
 }
