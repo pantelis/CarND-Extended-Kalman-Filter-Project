@@ -89,7 +89,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
             // x = rho * cos(phi), y = rho * sin(phi)
             ekf_.x_ << measurement_pack.raw_measurements_[0]*cos(measurement_pack.raw_measurements_[1]),
                     measurement_pack.raw_measurements_[0]*sin(measurement_pack.raw_measurements_[1]),
-                    0., 0.;
+                    measurement_pack.raw_measurements_[2]*cos(measurement_pack.raw_measurements_[1]),
+                    measurement_pack.raw_measurements_[2]*sin(measurement_pack.raw_measurements_[1]);
 
             ekf_.H_ = Hj_;
             ekf_.R_ = R_radar_;
